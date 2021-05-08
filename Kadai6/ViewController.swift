@@ -11,6 +11,7 @@ class ViewController: UIViewController {
     
     @IBOutlet private weak var label: UILabel!
     @IBOutlet private weak var slider: UISlider!
+    var randomNum: Int!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -20,9 +21,8 @@ class ViewController: UIViewController {
     @IBAction private func judgmentBtn(_ sender: Any) {
         
         let sliderValue = Int(slider.value)
-        let labalValue = Int(label.text!)
         
-        if sliderValue == labalValue {
+        if sliderValue == randomNum {
             presentAlert(message: "当たり!\n現在の値\(sliderValue)")
         } else {
             presentAlert(message: "ハズレ\n現在の値\(sliderValue)")
@@ -32,8 +32,8 @@ class ViewController: UIViewController {
     //ラベルに乱数を表示し、スライダーを所定の位置へ
     private func oneMore() {
         slider.value = 50
-        let randomNum = arc4random_uniform(100)
-        label.text = String(randomNum + 1)
+        self.randomNum = Int(arc4random_uniform(100)) + 1
+        label.text = String(randomNum)
     }
     
     //アラートを作成し表示する
