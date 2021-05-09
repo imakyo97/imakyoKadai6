@@ -11,11 +11,11 @@ class ViewController: UIViewController {
     
     @IBOutlet private weak var label: UILabel!
     @IBOutlet private weak var slider: UISlider!
-    var randomNum: Int!
+    private var randomNum: Int!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.oneMore()
+        reset()
     }
     
     @IBAction private func judgmentBtn(_ sender: Any) {
@@ -30,19 +30,19 @@ class ViewController: UIViewController {
     }
     
     //ラベルに乱数を表示し、スライダーを所定の位置へ
-    private func oneMore() {
+    private func reset() {
         slider.value = 50
-        self.randomNum = Int(arc4random_uniform(100)) + 1
+        randomNum = Int(arc4random_uniform(100)) + 1
         label.text = String(randomNum)
     }
     
     //アラートを作成し表示する
-    private func presentAlert (message:String){
+    private func presentAlert(message: String){
         //アラートを作成
         let alert = UIAlertController(title: "結果", message: message, preferredStyle: .alert)
         //アラートボタンを作成
         alert.addAction(
-            UIAlertAction(title: "再挑戦", style: .default, handler: { (action) -> Void in self.oneMore()})
+            UIAlertAction(title: "再挑戦", style: .default, handler: { [weak self] _ in self?.reset()})
         )
         //アラートを表示
         present(alert, animated: true, completion: nil)
